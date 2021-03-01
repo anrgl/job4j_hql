@@ -16,11 +16,15 @@ public class Candidate {
 
     private double salary;
 
-    public static Candidate of(String name, int exp, double salary) {
+    @OneToOne(fetch = FetchType.LAZY)
+    private JobBase base;
+
+    public static Candidate of(String name, int exp, double salary, JobBase base) {
         Candidate candidate = new Candidate();
         candidate.setName(name);
         candidate.setExperience(exp);
         candidate.setSalary(salary);
+        candidate.setBase(base);
         return candidate;
     }
 
@@ -56,6 +60,14 @@ public class Candidate {
         this.salary = salary;
     }
 
+    public JobBase getBase() {
+        return base;
+    }
+
+    public void setBase(JobBase base) {
+        this.base = base;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -79,6 +91,7 @@ public class Candidate {
                 ", name='" + name + '\'' +
                 ", experience=" + experience +
                 ", salary=" + salary +
+                ", base=" + base +
                 '}';
     }
 }
